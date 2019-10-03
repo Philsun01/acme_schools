@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Philsun01/acme_schools#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "pg": "^7.12.1",
     "sequelize": "^5.19.2"
   }

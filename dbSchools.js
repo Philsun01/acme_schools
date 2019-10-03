@@ -8,9 +8,9 @@ const School = conn.define('school',{
     type: Sequelize.UUID
   },
   name: {
-  type: Sequelize.STRING,
-  unique: true,
-  allowNull: false
+  type: Sequelize.STRING
+  //unique: true,
+  //allowNull: true
   }
 });
 
@@ -33,8 +33,16 @@ const syncAndSeed = async()=>{
   School.create({name: 'UCLA'});
   School.create({name: 'USC'});
   Student.create({name: 'Billy'});
-  Student.create({name: 'Billy'});
+  Student.create({name: 'Joe'});
 
 }
 
-syncAndSeed();
+//syncAndSeed();
+
+module.exports = {
+  syncAndSeed,
+  models: {
+    School,
+    Student
+  }
+};
