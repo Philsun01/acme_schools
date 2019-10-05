@@ -23,9 +23,11 @@
       }
 
       async componentDidMount(){
-        const temp = await axios.get('http://localhost:3000/api/student').data
-        console.log(temp)
-        this.setState(  )
+        //const temp = await axios.get('/api/student')
+        //const temp = 'John'
+        //console.log(temp)
+
+        this.setState( {studentName: (await axios.get('/api/student')).data} )
       }
 
       render(){

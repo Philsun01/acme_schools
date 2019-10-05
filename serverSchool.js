@@ -22,7 +22,7 @@ app.get('/api/school', async(req, res, next) => {
 })
 
 app.get('/api/student', async(req, res, next) => {
-  res.send('Student Page');
+  res.send('Connected to API Student Page');
 })
 
 app.post(`/api/post/:name`, async(req, res, next) => {
