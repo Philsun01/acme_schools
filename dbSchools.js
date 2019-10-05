@@ -9,8 +9,7 @@ const School = conn.define('school',{
   },
   name: {
   type: Sequelize.STRING
-  //unique: true,
-  //allowNull: true
+
   }
 });
 

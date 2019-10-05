@@ -1,5 +1,5 @@
 const { syncAndSeed, models: {School, Student} } = require( './dbSchools');
-
+const Sequelize = require('sequelize');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -14,20 +14,33 @@ app.get('/',(req, res, next) => {
   }
 })
 app.get('/api/school', async(req, res, next) => {
-  try{
-  res.send( await School.findAll() );
-  } catch (err){
-    console.log(err)
-  }
+
+  School.findAll()
+    .then( school => res.send(school))
+    .catch(next);
 })
 app.get('/api/student', async(req, res, next) => {
+
+  const temp = await Student.findOne({where:{name:'Joe'}});
+
   try{
-  res.send( await Student.findAll() );
+  res.send(temp.id );
   } catch (err){
     console.log(err)
   }
 })
+app.get(`/api/student/:name`, async(req, res, next) => {
+  const newName = req.params.name;
+  Student.create({ name: newName });
+  const newStudent = await Student.findOne({where:{name: newName}});
+  const text = `${newName} has been enrolled with student ID: ${newStudent.id}`;
 
+  try{
+  res.send(text);
+  } catch (err){
+    console.log(err)
+  }
+})
 
 syncAndSeed().then(
   ()=> {
