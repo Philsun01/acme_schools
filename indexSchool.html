@@ -17,9 +17,13 @@
       constructor(){
         super();
         this.state = {
-          studentName: 'Jack'
+          studentName: 'Jack',
+          joe: {
+              name: 'blank',
+              id: '0000'
+              }
         };
-
+        this.getJoe = this.getJoe.bind(this);
       }
 
       async componentDidMount(){
@@ -30,8 +34,14 @@
         this.setState( {studentName: (await axios.get('/api/student')).data} )
       }
 
+      async getJoe(){
+        console.log('get joe activated');
+        this.setState( { joe: (await axios.get('/api/student/Joe')).data})
+      }
+
       render(){
-        const {studentName} = this.state;
+        const {studentName, joe} = this.state;
+        const {getJoe} = this;
         return(
           <div>
             <h2> Hello Button </h2>
@@ -39,6 +49,9 @@
             <hr/>
             <button> Get Student Name </button>
             <p> Student name is {studentName}</p>
+            <hr></hr>
+            <button onClick = {getJoe}> Get Student Joe's Name </button>
+            <p> {joe.name} new ID number is {joe.id}</p>
           </div>
 
         )

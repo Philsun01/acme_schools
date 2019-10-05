@@ -25,17 +25,18 @@ app.get('/api/student', async(req, res, next) => {
   res.send('Connected to API Student Page');
 })
 
+app.get(`/api/student/:name`, async(req, res, next) => {
+  const studentName = req.params.name;
+  const getStudent = await Student.findOne({where:{name: studentName}});
+  res.send(getStudent);
+})
+
 app.post(`/api/post/:name`, async(req, res, next) => {
   const studentName = req.params.name;
   const newStudent = await Student.create(studentName);
   res.send(`Posting ${studentName}`);
 })
 
-app.get(`/api/student/:name`, async(req, res, next) => {
-  const studentName = req.params.name;
-  const getStudent = await Student.findOne({where:{name: studentName}});
-  res.send(getStudent);
-})
 
 syncAndSeed().then(
   ()=> {
