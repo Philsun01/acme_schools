@@ -40,8 +40,6 @@ const syncAndSeed = async()=>{
 
 module.exports = {
   syncAndSeed,
-  models: {
-    School,
-    Student
-  }
+  School,
+  Student
 };
