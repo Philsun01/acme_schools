@@ -24,6 +24,7 @@
               }
         };
         this.getJoe = this.getJoe.bind(this);
+        this.postMoe = this.postMoe.bind(this);
       }
 
       async componentDidMount(){
@@ -39,13 +40,18 @@
         this.setState( { joe: (await axios.get('/api/student/Joe')).data})
       }
 
+      async postMoe(){
+        console.log('Posting moe activated');
+        await axios.post('/api/post', { name: 'Moe'})
+      }
+
       render(){
         const {studentName, joe} = this.state;
-        const {getJoe} = this;
+        const {getJoe, postMoe} = this;
         return(
           <div>
             <h2> Hello Button </h2>
-            <button> Post Student Name </button>
+            <button onClick = {postMoe}> Post Moe's Name </button>
             <hr/>
             <button> Get Student Name </button>
             <p> Student name is {studentName}</p>

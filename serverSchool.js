@@ -6,6 +6,14 @@ const path = require('path');
 const url = path.join(__dirname, 'indexSchool.html');
 const port = process.env.PORT || 3000;
 
+/*
+app.use((req,res,next)=> {
+  console.log(` ${req.url} called as ${req.method}`);
+  next('next Line asfter console.log');
+})
+*/
+app.use(express.json());
+
 app.get('/',(req, res, next) => {
   try{
   res.sendFile(url);
@@ -31,10 +39,14 @@ app.get(`/api/student/:name`, async(req, res, next) => {
   res.send(getStudent);
 })
 
-app.post(`/api/post/:name`, async(req, res, next) => {
-  const studentName = req.params.name;
-  const newStudent = await Student.create(studentName);
-  res.send(`Posting ${studentName}`);
+
+app.post(`/api/post`, async(req, res, next) => {
+  console.log(req.body);
+  try{
+    res.send(await Student.create(req.body));
+  } catch(ex) {
+    next(ex)
+  }
 })
 
 
