@@ -39,11 +39,22 @@ app.get(`/api/student/:name`, async(req, res, next) => {
   res.send(getStudent);
 })
 
-
 app.post(`/api/post`, async(req, res, next) => {
   console.log(req.body);
   try{
-    res.send(await Student.create(req.body));
+    const newStudent = await Student.create(req.body);
+    res.send(newStudent);
+  } catch(ex) {
+    next(ex)
+  }
+})
+
+app.delete(`/api/delete/:name`, async(req, res, next) => {
+  console.log(req.body);
+  try{
+    const studentName = req.params.name;
+    const delStudent = await Student.destroy( {where:{name: studentName}} );
+    res.send(delStudent);
   } catch(ex) {
     next(ex)
   }
