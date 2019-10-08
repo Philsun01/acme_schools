@@ -26,6 +26,7 @@
         this.getJoe = this.getJoe.bind(this);
         this.postMoe = this.postMoe.bind(this);
         this.deleteMoe = this.deleteMoe.bind(this);
+        this.updateMoe = this.updateMoe.bind(this);
       }
 
       async componentDidMount(){
@@ -48,22 +49,31 @@
         )
       }
 
-      async deleteMoe(){
-        console.log('Deleting moe activated');
-        await axios.delete('/api/delete/Moe').then(
+      async updateMoe(){
+        console.log('Updating Moe now');
+        await axios.put('/api/update/Moe', { name: 'Toad'}).then(
           res => console.log(res.data)
         )
       }
 
+      async deleteMoe(){
+        console.log('Deleting moe activated');
+        await axios.delete('/api/delete/Moe')
+        .then(res=>console.log(res));
+
+      }
+
       render(){
         const {studentName, joe} = this.state;
-        const {getJoe, postMoe, deleteMoe} = this;
+        const {getJoe, postMoe, deleteMoe, updateMoe} = this;
         return(
           <div>
             <h2> Hello Button </h2>
             <button onClick = {postMoe}> Post Moe's Name </button>
             <hr/>
             <button onClick = {deleteMoe}> Delete Moe's Name </button>
+            <hr/>
+            <button onClick = {updateMoe}> Update Moe to Toad </button>
             <hr/>
             <button> Get Student Name </button>
             <p> Student name is {studentName}</p>

@@ -49,12 +49,23 @@ app.post(`/api/post`, async(req, res, next) => {
   }
 })
 
+app.put(`/api/update/:name`, async (req, res, next) => {
+
+  try{
+    const studentName = req.params.name;
+    const updateStudent = await Student.update(req.body, { where:{name: studentName}, returning: true });
+    res.json(updateStudent);
+  } catch(ex) {
+    next(ex)
+  }
+})
+
 app.delete(`/api/delete/:name`, async(req, res, next) => {
   console.log(req.body);
   try{
     const studentName = req.params.name;
     const delStudent = await Student.destroy( {where:{name: studentName}} );
-    res.send(delStudent);
+    res.sendStatus(204);
   } catch(ex) {
     next(ex)
   }
