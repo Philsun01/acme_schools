@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import store from './store.js';
+
 
 
 class App extends React.Component{
@@ -76,4 +79,41 @@ class App extends React.Component{
   }
 }
 ReactDOM.render(<App></App>, document.querySelector('#root'));
+
+class Test extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      students: store.getState()
+    }
+    this.addTim = this.addTim.bind(this);
+  }
+
+  addTim(){
+    store.dispatch({type:'ADD',name:'Timmy'});
+    console.log('adding Tim');
+    console.log(store.getState());
+    this.setState({
+                    students: store.getState()
+                  })
+  }
+  render(){
+
+    const {students} =  this.state;
+    const {addTim} = this;
+
+    return(
+      <div>
+        <h1> This is redux Provider List Test </h1>
+        <button onClick= {addTim}>Add Student</button>
+        <ul>
+        {students.map((student, idx) => <li key={idx}>{student}</li>)}
+        </ul>
+      </div>
+    )
+  }
+
+}
+ReactDOM.render(<Provider store = {store}><Test /> </Provider>, document.querySelector('#test'));
+
 
