@@ -6,13 +6,11 @@ const path = require('path');
 const url = path.join(__dirname, 'indexSchool.html');
 const port = process.env.PORT || 3000;
 
-/*
-app.use((req,res,next)=> {
-  console.log(` ${req.url} called as ${req.method}`);
-  next('next Line asfter console.log');
-})
-*/
 app.use(express.json());
+
+app.get('/dist/main.js', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'dist/main.js'));
+});
 
 app.get('/',(req, res, next) => {
   try{

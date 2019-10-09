@@ -2,13 +2,21 @@
   "name": "acme_schools",
   "version": "1.0.0",
   "description": "",
-  "main": "dbSchools.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack",
+    "webpack:dev": "webpack --mode=development --watch",
+    "start:dev": "npm run webpack:dev & nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Philsun01/acme_schools.git"
+  },
+  "babel": {
+    "presets": [
+      "@babel/react"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -17,9 +25,16 @@
     "url": "https://github.com/Philsun01/acme_schools/issues"
   },
   "homepage": "https://github.com/Philsun01/acme_schools#readme",
-  "dependencies": {
-    "express": "^4.17.1",
+  "devDependencies": {
+    "@babel/core": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.0.6",
     "pg": "^7.12.1",
-    "sequelize": "^5.19.2"
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "sequelize": "^5.19.4",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
   }
 }
