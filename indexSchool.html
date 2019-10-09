@@ -7,7 +7,7 @@
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
-
+  <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
   </head>
 
   <body>
@@ -17,6 +17,31 @@
     <script type = 'text/babel'>
     const root = document.querySelector('#home');
     ReactDOM.render(<h1>This is Home Page</h1>, root);
+
+
+    function students(state = [], action) {
+        if (typeof state === 'undefined') {
+          return 0
+        }
+        switch (action.type) {
+          case 'ADD':
+            return [...state, action.name]
+          case 'REMOVE':
+            return state
+          default:
+            return state
+        }
+      }
+
+      const store = Redux.createStore(students)
+      console.log(store.getState());
+      store.dispatch({type:'ADD',name:'Jack'});
+      console.log(store.getState());
+      store.dispatch({type:'ADD',name:'Motley'});
+      console.log(store.getState());
+      store.dispatch({type:'ADD',name:'Crazy'});
+      console.log(store.getState().length);
+
 
     </script>
   </body>
