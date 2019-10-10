@@ -31,6 +31,16 @@ app.get('/api/student', async(req, res, next) => {
   res.send('Connected to API Student Page');
 })
 
+app.get('/api/allstudents', async(req, res, next) => {
+  res.send(
+    await Student.findAll({
+    attributes: ['firstName', 'lastName', 'school', 'gpa','email']
+      })
+  );
+})
+
+
+
 app.get(`/api/student/:name`, async(req, res, next) => {
   const studentName = req.params.name;
   const getStudent = await Student.findOne({where:{name: studentName}});

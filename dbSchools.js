@@ -19,11 +19,22 @@ const Student = conn.define('student',{
     defaultValue: Sequelize.UUIDV4,
     type: Sequelize.UUID
   },
-  name: {
+  firstName: {
   type: Sequelize.STRING,
-  unique: true,
-  allowNull: false
-  }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+  },
+  school: {
+    type: Sequelize.STRING,
+  },
+  gpa: {
+    type: Sequelize.STRING,
+  },
+  email: {
+    type: Sequelize.STRING,
+  },
+
 });
 
 const syncAndSeed = async()=>{
@@ -31,8 +42,20 @@ const syncAndSeed = async()=>{
 
   School.create({name: 'UCLA'});
   School.create({name: 'USC'});
-  Student.create({name: 'Billy'});
-  Student.create({name: 'Joe'});
+  Student.create({
+                firstName: 'Billy',
+                lastName: 'Bob',
+                school: 'UCLA',
+                gpa: '4.0',
+                email: 'Something@gmail.com'
+                });
+  Student.create({
+                firstName: 'Joe',
+                lastName: 'Schmoe',
+                school: 'USC',
+                GPA: '3.5',
+                email: 'Another@gmail.com'
+                });
 
 }
 

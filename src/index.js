@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from './store.js';
+import Input from './input.js';
 
 
 
@@ -17,7 +18,7 @@ class App extends React.Component{
           }
     };
     this.getJoe = this.getJoe.bind(this);
-    this.postMoe = this.postMoe.bind(this);
+
     this.deleteMoe = this.deleteMoe.bind(this);
     this.updateMoe = this.updateMoe.bind(this);
   }
@@ -33,13 +34,6 @@ class App extends React.Component{
   async getJoe(){
     console.log('get joe activated');
     this.setState( { joe: (await axios.get('/api/student/Joe')).data})
-  }
-
-  async postMoe(){
-    console.log('Posting moe activated');
-    await axios.post('/api/post', { name: 'Moe'}).then(
-      res => console.log(res.data)
-    )
   }
 
   async updateMoe(){
@@ -62,8 +56,6 @@ class App extends React.Component{
     return(
       <div>
         <h2> Hello Button </h2>
-        <button onClick = {postMoe}> Post Moe's Name </button>
-        <hr/>
         <button onClick = {deleteMoe}> Delete Moe's Name </button>
         <hr/>
         <button onClick = {updateMoe}> Update Moe to Toad </button>
@@ -80,7 +72,7 @@ class App extends React.Component{
 }
 ReactDOM.render(<App></App>, document.querySelector('#root'));
 
-class Test extends React.Component{
+class Students extends React.Component{
   constructor(){
     super();
     this.state = {
@@ -105,15 +97,17 @@ class Test extends React.Component{
     return(
       <div>
         <h1> This is redux Provider List Test </h1>
-        <button onClick= {addTim}>Add Student</button>
+        <button onClick= {addTim}>Add Student to Redux</button>
         <ul>
-        {students.map((student, idx) => <li key={idx}>{student}</li>)}
+        {students.map((student, idx) => <li key={idx}>{student.firstName}</li>)}
         </ul>
       </div>
     )
   }
 
 }
-ReactDOM.render(<Provider store = {store}><Test /> </Provider>, document.querySelector('#test'));
+
+ReactDOM.render(<Input /> , document.querySelector('#input'));
+ReactDOM.render(<Provider store = {store}><Students /> </Provider>, document.querySelector('#studentList'));
 
 
