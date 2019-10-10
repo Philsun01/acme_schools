@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import store from './store';
+
 
 class Input extends React.Component{
   constructor(){
@@ -21,9 +23,19 @@ class Input extends React.Component{
           school: this.state.school,
           gpa: this.state.school,
           email: this.state.school
-        }).then(
-        res => console.log(res.data)
-      )
+        }).then(res => console.log(res.data))
+
+        store.dispatch({
+          type:'ADD',
+           student: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                school: this.state.school,
+                gpa: this.state.school,
+                email: this.state.school
+              }
+      });
+
     }
 
     render(){

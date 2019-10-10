@@ -1,12 +1,9 @@
-import React from 'react';
+import thunk from 'redux-thunk';
+import {applyMiddleware } from 'redux';
 import { createStore } from 'redux';
 import { Provider, connect  } from 'react-redux';
 
-const getAllStudents = async() => {
-  console.log('Getting All Students');
-  const studentData = (await axios.get('/api/allstudents'));
-  //studentData.map(student => store.dispatch({type: 'ADD', payload: student}))
-}
+
 
 const initialState = [];
 
@@ -17,14 +14,14 @@ const initialState = [];
         switch (action.type) {
           case 'ADD':
             return [...state, action.student]
-          //case 'REMOVE':
+        //case 'REMOVE':
            // return state.filter(name=>name !== action.name)
           default:
             return state
         }
       }
 
-      const store = createStore(students)
+      const store = createStore(students, applyMiddleware(thunk))
 
       store.dispatch({
             type:'ADD',
@@ -47,9 +44,15 @@ const initialState = [];
             }
         });
 
-      console.log(store.getState());
+      const getAllStudents = async() => {
+        console.log('Getting All Students');
+        const studentData = (await axios.get('/api/allstudents')).data;
+        studentData.map(newStudent => store.dispatch({type: 'ADD', student: newStudent}))
+        console.log(store.getState());
+      }
 
-      //getAllStudents();
+
+      getAllStudents();
 
       export default store;
 

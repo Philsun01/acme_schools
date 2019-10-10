@@ -55,7 +55,7 @@ class App extends React.Component{
     const {getJoe, postMoe, deleteMoe, updateMoe} = this;
     return(
       <div>
-        <h2> Hello Button </h2>
+        <h2> Single Test Buttons </h2>
         <button onClick = {deleteMoe}> Delete Moe's Name </button>
         <hr/>
         <button onClick = {updateMoe}> Update Moe to Toad </button>
@@ -78,28 +78,21 @@ class Students extends React.Component{
     this.state = {
       students: store.getState()
     }
-    this.addTim = this.addTim.bind(this);
+
   }
 
-  addTim(){
-    store.dispatch({type:'ADD',name:'Timmy'});
-    console.log('adding Tim');
-    console.log(store.getState());
-    this.setState({
-                    students: store.getState()
-                  })
-  }
+
   render(){
 
     const {students} =  this.state;
-    const {addTim} = this;
+
 
     return(
       <div>
-        <h1> This is redux Provider List Test </h1>
-        <button onClick= {addTim}>Add Student to Redux</button>
+        <h1> This is redux Student List </h1>
+
         <ul>
-        {students.map((student, idx) => <li key={idx}>{student.firstName}</li>)}
+        {students.map((student, idx) => <li key={idx}> {student.firstName} {student.lastName} attends {student.school} and has a GPA of {student.gpa} </li>)}
         </ul>
       </div>
     )
